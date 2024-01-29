@@ -1,15 +1,12 @@
 import com.example.KMeanCluster;
-import com.example.KMeansAlgorithm;
 import org.junit.Before;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.mockito.MockitoAnnotations;
 import org.powermock.reflect.Whitebox;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -40,25 +37,12 @@ public class TestKMeansAlgorithm {
     double d = 0.001;
 
     KMeanCluster kMeanCluster = new KMeanCluster(vectorSet, k, n, d);
+    Whitebox.invokeMethod(kMeanCluster, "buildCluster");
     HashMap<String, Double[]> clusterCentroidValues =
-        Whitebox.invokeMethod(kMeanCluster, "buildCluster");
+        Whitebox.invokeMethod(kMeanCluster, "getCentroidValues");
     HashMap<String, List<Double[]>> clusters = Whitebox.invokeMethod(kMeanCluster, "getClusters");
 
     Assertions.assertNotNull(clusterCentroidValues);
     Assertions.assertNotNull(clusters);
-    //        clusterCentroidValues.forEach(
-    //                (key, value) -> {
-    //                  System.out.println(key + " " + Arrays.toString(value));
-    //                });
-    //        System.out.println();
-    //        clusters.forEach(
-    //                (key, value) -> {
-    //                  System.out.print(key);
-    //                  for (Double[] doubles : value) {
-    //                    System.out.print(" " + Arrays.toString(doubles));
-    //                  }
-    //                  System.out.println();
-    //                });
-
   }
 }

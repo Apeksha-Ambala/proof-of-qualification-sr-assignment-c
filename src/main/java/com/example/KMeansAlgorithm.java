@@ -38,7 +38,7 @@ public class KMeansAlgorithm {
     // Read data from file
     try {
       String path = Paths.get("").toAbsolutePath().toString();
-      String filePath = path + "/src/main/resources/input.txt";
+      String filePath = path + "/src/main/resources/cluster-test-1.txt";
       reader = new BufferedReader(new FileReader(filePath));
       String line = reader.readLine();
 
@@ -91,7 +91,8 @@ public class KMeansAlgorithm {
     // Create cluster
     try {
       KMeanCluster kMeanCluster = new KMeanCluster(vectorSet, k, n, d);
-      HashMap<String, Double[]> clusterCentroidValues = kMeanCluster.buildCluster();
+      kMeanCluster.buildCluster();
+      HashMap<String, Double[]> clusterCentroidValues = kMeanCluster.getCentroidValues();
 
       // Program outputs:
       //
@@ -104,7 +105,7 @@ public class KMeansAlgorithm {
           (key, value) -> {
             System.out.print(key);
             for (double dValue : value) {
-              System.out.print(" " + df.format(dValue));
+              System.out.print(" " + df.format(Math.round(dValue)));
             }
             System.out.println();
           });
